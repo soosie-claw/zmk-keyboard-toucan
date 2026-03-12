@@ -26,7 +26,7 @@ static void draw_level(lv_obj_t *canvas, const struct status_state *state) {
         lv_canvas_draw_img(canvas, 8, 10, &l_battery_50, &img_dsc_l);
     } else if (level > 10) {
         lv_canvas_draw_img(canvas, 8, 10, &l_battery_25, &img_dsc_l);
-    } else if (level > 1) {
+    } else if (level > 0) {
         lv_canvas_draw_img(canvas, 8, 10, &l_battery_10, &img_dsc_l);
     }
 

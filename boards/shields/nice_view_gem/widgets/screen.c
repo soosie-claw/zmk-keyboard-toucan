@@ -65,7 +65,15 @@ static void set_battery_status(struct zmk_widget_screen *widget,
 #if IS_ENABLED(CONFIG_USB_DEVICE_STACK)
     widget->state.charging = state.usb_present;
 #endif /* IS_ENABLED(CONFIG_USB_DEVICE_STACK) */
-    widget->state.battery = state.level;
+
+    // Actively read battery level, matching the peripheral handler pattern.
+    // The event payload can be stale/zero if the ADC hasn't completed its
+    // first read by display init time.
+    uint8_t level = state.level;
+    if (level == 0) {
+        level = zmk_battery_state_of_charge();
+    }
+    widget->state.battery = level;
 
     draw_top(widget->obj, widget->cbuf, &widget->state);
 }
