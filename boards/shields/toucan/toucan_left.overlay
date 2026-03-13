@@ -1,5 +1,11 @@
 #include "toucan.dtsi"
 
+/* Tune battery voltage divider — default 510K reads low on this unit */
+&vbatt {
+    output-ohms = <470000>;
+    full-ohms = <(1000000 + 470000)>;
+};
+
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
